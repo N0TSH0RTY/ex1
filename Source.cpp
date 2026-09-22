@@ -22,11 +22,23 @@ void showArray(ofstream& outFile, MovieRec movie[], int Length);
 int main() {
 
 	MovieRec movie[10];
-	int Length;
+	int length;
 
+	ofstream outFile("movie.report");
+	if (!outFile)
+	{
+		cout << "Error opening movie.report file" << endl;
+		system("pause");
+		exit(-1);
+	}
 
+	length = loadArray(movie);
+	showArray(outFile, movie, length);
+	outFile.close();
+	system("type movie.report");
+	system("type movie.data");
 
-
+	return 0;
 
 
 	system("pause");
@@ -69,12 +81,12 @@ int loadArray(MovieRec movie[])
 
 void showArray(ofstream& outFile, MovieRec movie[], int Length)
 {
-	outFile << left << setw(10) << "Year" << setw(25) << "Title" << right << setw(10) << "Length" << endl;
+	outFile  << "Year "  << " Title"  << " Length" << endl;
 
 	outFile << "--------------------------------------------------------" << endl;
 
 	for (int index = 0; index < Length; index++)
 	{
-		outFile << left << setw(10) << movie[index].year << setw(25) << movie[index].title << right << setw(10) << movie[index].length << endl;
+		outFile << movie[index].year  << movie[index].title  << movie[index].length << endl;
 	}
 }
